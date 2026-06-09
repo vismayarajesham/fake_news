@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fake News Detection</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>📰 Fake News Detection System</h1>
+        <div class="model-badge">
+            <span>🤖 {{ model_name }}</span>
+            <span>✅ {{ accuracy }}%</span>
+        </div>
+    </div>
+
+    <!-- ✅ FORM WITH CORRECT METHOD AND ACTION -->
+    <form method="POST" action="/predict">
+
+        <div class="form-group">
+            <label for="title">
+                📝 News Title <span class="required">*</span>
+            </label>
+            <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Enter news headline..."
+                value="{{ title|default('', true) }}"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="news_url">
+                🔗 News URL
+                <span class="optional">(optional)</span>
+            </label>
+            <input
+                type="text"
+                id="news_url"
+                name="news_url"
+                placeholder="https://example.com/article"
+                value="{{ news_url|default('', true) }}"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="source_domain">
+                🌐 Source Domain
+                <span class="optional">(optional)</span>
+            </label>
+            <input
+                type="text"
+                id="source_domain"
+                name="source_domain"
+                placeholder="example.com"
+                value="{{ source_domain|default('', true) }}"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="tweet_num">
+                🐦 Number of Tweets
+                <span class="optional">(optional)</span>
+            </label>
+            <input
+                type="number"
+                id="tweet_num"
+                name="tweet_num"
+                placeholder="0"
+                min="0"
+                value="{{ tweet_num|default(0, true) }}"
+            >
+        </div>
+
+        <button type="submit">🔍 CHECK NEWS</button>
+
+    </form>
+
+    {% if prediction %}
+    <div class="result"
+         style="border-left: 6px solid {{ border_color }};
+                background: {{ bg_color }};">
+
+        <h2 style="color: {{ color }};">
+            {{ prediction }}
+        </h2>
+
+        <div class="confidence-bars">
+            <div class="bar-row">
+                <span class="bar-label">Real News</span>
+                <div class="bar-track">
+                    <div class="bar-fill green"
+                         style="width: {{ real_prob }}%">
+                    </div>
+                </div>
+                <span class="bar-val">
+                    {{ real_prob }}%
+                </span>
+            </div>
+            <div class="bar-row">
+                <span class="bar-label">Fake News</span>
+                <div class="bar-track">
+                    <div class="bar-fill red"
+                         style="width: {{ fake_prob }}%">
+                    </div>
+                </div>
+                <span class="bar-val">
+                    {{ fake_prob }}%
+                </span>
+            </div>
+        </div>
+
+        <p class="confidence-text">
+            Confidence:
+            <strong>{{ confidence }}%</strong>
+        </p>
+
+        {% if features %}
+        <div class="features-section">
+            <h3>🔍 Feature Analysis</h3>
+            <div class="features-grid">
+
+                <div class="feature-item">
+                    <span class="feat-label">🔒 HTTPS</span>
+                    <span class="feat-val
+                        {% if features.url_has_https %}good
+                        {% else %}bad{% endif %}">
+                        {% if features.url_has_https %}
+                            Secure ✅
+                        {% else %}
+                            Not Secure ⚠️
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feat-label">🌐 Trust</span>
+                    <span class="feat-val
+                        {% if features.domain_trusted %}good
+                        {% else %}neutral{% endif %}">
+                        {% if features.domain_trusted %}
+                            Trusted ✅
+                        {% else %}
+                            Unknown ⚠️
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feat-label">⚡ Clickbait</span>
+                    <span class="feat-val
+                        {% if features.title_has_clickbait %}bad
+                        {% else %}good{% endif %}">
+                        {% if features.title_has_clickbait %}
+                            Detected ❌
+                        {% else %}
+                            None ✅
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feat-label">🐦 Viral</span>
+                    <span class="feat-val
+                        {% if features.is_viral %}bad
+                        {% else %}neutral{% endif %}">
+                        {% if features.is_viral %}
+                            Viral ⚠️
+                        {% else %}
+                            Normal ✅
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feat-label">📊 Tweets</span>
+                    <span class="feat-val neutral">
+                        {{ features.tweet_num }}
+                    </span>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feat-label">📝 Words</span>
+                    <span class="feat-val neutral">
+                        {{ features.title_word_count }}
+                    </span>
+                </div>
+
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">
+        <p>⚠️ {{ error }}</p>
+    </div>
+    {% endif %}
+
+    <div class="footer">
+        <p>Fake News Detection System | AI & NLP</p>
+    </div>
+
+</div>
+
+</body>
+</html>
