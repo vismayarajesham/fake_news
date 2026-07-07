@@ -1,0 +1,77 @@
+
+============================================================
+FAKE NEWS DETECTION SYSTEM
+EVALUATION REPORT
+============================================================
+
+Model Information:
+------------------
+Model Name     : Gradient Boosting
+Model Accuracy : 0.9779
+                 (97.79%)
+
+Dataset Information:
+--------------------
+Total Samples  : 16,989
+Real News      : 11,326 (66.67%)
+Fake News      :  5,663 (33.33%)
+Train Split    : 80% (13,591 samples)
+Test Split     : 20%  (3,398 samples)
+
+Overall Performance Metrics:
+-----------------------------
+Accuracy       : 0.9779 (97.79%)
+Precision      : 0.9779
+Recall         : 0.9779
+F1-Score       : 0.9779
+AUC-ROC        : 0.9950
+MCC            : 0.9502
+Kappa Score    : 0.9502
+
+Confusion Matrix:
+-----------------
+True Negative  (TN) : 1089  (Correct Fake)
+False Positive (FP) : 44  (Fake predicted as Real)
+False Negative (FN) : 31  (Real predicted as Fake)
+True Positive  (TP) : 2234  (Correct Real)
+
+Sensitivity (TPR) : 0.9863
+Specificity (TNR) : 0.9612
+False Pos Rate    : 0.0388
+False Neg Rate    : 0.0137
+
+Per Class Metrics:
+------------------
+Class         Precision    Recall    F1-Score
+Fake News     0.9723        0.9612     0.9667
+Real News     0.9807        0.9863     0.9835
+
+Feature Summary:
+----------------
+TF-IDF Features      : 15,462
+URL Features         : 8
+Domain Features      : 5
+Title Features       : 9
+Tweet Features       : 4
+Total Features       : 15,488
+
+Top Predictive Features:
+------------------------
+1. url_has_https      : 0.8011 (Real signal)
+2. url_slashes        : 0.4706 (Real signal)
+3. url_length         : 0.1860 (Real signal)
+4. domain_trusted     : 0.1622 (Real signal)
+5. title_question     : 0.1539 (Fake signal)
+6. is_viral           : 0.1410 (Fake signal)
+7. title_clickbait    : 0.0837 (Fake signal)
+
+Generated Plots:
+----------------
+- static/detailed_confusion_matrix.png
+- static/roc_curve_analysis.png
+- static/precision_recall_curve.png
+- static/metrics_visualization.png
+- static/model_comparison.png
+- static/feature_importance.png
+
+============================================================
