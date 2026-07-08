@@ -22,7 +22,8 @@ A Machine Learning based web application developed to automatically detect and c
 - HTML
 - CSS
 
- Project Structure
+##Project Structure
+```
 fake-news-detection/
 ├── app.py
 ├── load_data.py
@@ -38,6 +39,7 @@ fake-news-detection/
 ├── Procfile
 ├── runtime.txt
 └── build.sh
+```
 
 ## Model Performance
 - Best Model: Gradient Boosting Classifier
