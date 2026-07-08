@@ -60,7 +60,7 @@ python app.py
 ## Live Demo
 https://fake-news-6lm8.onrender.com
 
-##screenshots
+screenshots
 <img width="1885" height="922" alt="Screenshot 2026-07-08 140457" src="https://github.com/user-attachments/assets/665fa8bb-6821-4fb7-a52c-afce7bdbea84" />
 <img width="1892" height="882" alt="Screenshot 2026-07-08 140934" src="https://github.com/user-attachments/assets/f0615333-27e4-4359-a9af-b6eb256fadf9" />
 
