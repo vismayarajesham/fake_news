@@ -22,7 +22,7 @@ A Machine Learning based web application developed to automatically detect and c
 - HTML
 - CSS
 
-## Project Structure
+ Project Structure
 fake-news-detection/
 ├── app.py
 ├── load_data.py
